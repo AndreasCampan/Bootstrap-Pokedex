@@ -61,7 +61,7 @@ p {
   height: 100px;
   min-width: 100px;
   min-height: 100px;
-  transition: ease all .5s;
+  transition: ease-in-out all .3s;
 }
 
 .header-powerbttn:hover {
@@ -71,13 +71,45 @@ p {
   height: 100px;
   min-width: 100px;
   min-height: 100px;
-  transition: ease all .5s;
+  transition: ease-in-out all .2s;
 }
 
 .page-header-box li {
   display: inline-block;
   list-style-type: none;
   padding: 0 1em;
+}
+/*-------------------------Navigation link images-------------------------*/
+.nav-bttn-home {
+  background-image: url(/simple-js-app/img/greenbttn.png);
+  background-size: 100% 100%;
+  width: 132px;
+  height: 41px;
+  transition: ease-in-out all .2s;
+}
+
+.nav-bttn-home:hover {
+  background-image: url(/simple-js-app/img/greenbttn-hover.png);
+  background-size: 100% 100%;
+  width: 132px;
+  height: 41px;
+  transition: ease-in-out all .2s;
+}
+
+.nav-bttn-about {
+  background-image: url(/simple-js-app/img/aboutbttn.png);
+  background-size: 100% 100%;
+  width: 132px;
+  height: 41px;
+  transition: ease-in-out all .2s;
+}
+
+.nav-bttn-about:hover {
+  background-image: url(/simple-js-app/img/aboutbttn-hover.png);
+  background-size: 100% 100%;
+  width: 132px;
+  height: 41px;
+  transition: ease-in-out all .2s;
 }
 
 /*-------------------------Home Page-------------------------*/
@@ -163,7 +195,29 @@ p {
     margin: 0.5em auto 0;
     padding: 20px 20px 0 20px;
   }
+
+  
+  .nav-bttn-home {
+    width: 120px;
+    height: 37px;
+  }
+  
+  .nav-bttn-home:hover {
+    width: 120px;
+    height: 37px;
+  }
+  
+  .nav-bttn-about {
+    width: 120px;
+    height: 37px;
+  }
+  
+  .nav-bttn-about:hover {
+    width: 120px;
+    height: 37px;
+  }
 }
+
 
 @media all and (max-width:420px) {
 
@@ -184,15 +238,16 @@ p {
   }
 
   .page-header-box li {
-       padding: 0 10px;
+       padding: 0;
   }
 
   .header-powerbttn {
-    margin-left: 15px;
+    margin: 0 0 0 15px;
     width: 75px;
     height: 75px;
     min-width: 75px;
     min-height: 75px;
+    border: 1px solid black;
   }
   
   .header-powerbttn:hover {
@@ -201,6 +256,26 @@ p {
     height: 75px;
     min-width: 75px;
     min-height: 75px;
+  }
+
+  .nav-bttn-home {
+    width: 95px;
+    height: 30px;
+  }
+  
+  .nav-bttn-home:hover {
+    width: 95px;
+    height: 30px;
+  }
+  
+  .nav-bttn-about {
+    width: 95px;
+    height: 30px;
+  }
+  
+  .nav-bttn-about:hover {
+    width: 95px;
+    height: 30px;
   }
 
   .logos {

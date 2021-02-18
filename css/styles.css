@@ -33,6 +33,11 @@ p {
   font-weight: 400;
   line-height: 1.2em;
 }
+
+ul {
+  list-style-type: none;
+}
+
 /*-------------------------Header-------------------------*/
 .page-header { /* endless background for the header */
   width: 100%;
@@ -153,6 +158,33 @@ p {
   border-radius: 5px;
 }
 
+.pokemon-list {
+  padding: 0;
+  margin: 0;
+}
+
+.pokemon-list-style{
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: 600;
+  line-height: 60px;
+  color: rgb(0, 0, 0);
+  background-color:#bdb9df;
+  border: 3px solid #ececec;
+  width: 100%;
+  margin: 3px 0;
+}
+
+.pokemon-list-style:hover{
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: 600;
+  line-height: 60px;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  border: 3px solid rgb(45, 97, 171);
+  background-color: #F7C507;
+  transition: all ease-in-out 0.3s;
 }
 
 /*-------------------------About Page-------------------------*/
@@ -228,6 +260,21 @@ p {
     padding: 10px;
   }
   
+  .pokemon-list-style{
+    font-size: 1.4em;
+    line-height: 45px;
+    margin: 2px 0;
+    border: 2px solid rgb(45, 97, 171);
+    background-color: #F7C507;
+  }
+
+  .pokemon-list-style:hover{
+    font-size: 1.4em;
+    line-height: 45px;
+    border: 2px solid rgb(45, 97, 171);
+    background-color: #F7C507;
+  }
+
   .page-header { /* endless background for the header */
     min-width: 300px;
     height: 90px;

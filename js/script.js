@@ -27,8 +27,8 @@ let pokemonRepo = (function(){
   }
 
   // Function that will log the pokemon name to console when called
-  function showDetails(pokemon) {
-    console.log(pokemon.name + " Test");
+  function showDetails(pokemon) { 
+    console.log(pokemon.name);
   }
 
   /* Function to display pokemon from database on webpage. Contains a forEach method which creates a button with the name of each element iterated over */
@@ -38,16 +38,29 @@ let pokemonRepo = (function(){
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('pokemon-list-style');
-    //event listener for on click to run the showDetails function
-    button.addEventListener('click', showDetails(pokemon));
     listItem.appendChild(button);
-    pokemonList.appendChild(listItem);
+    pokemonList.appendChild(listItem); 
+    //event listener for on click to run the showDetails function
+    button.addEventListener('click', function() {
+      showDetails(pokemon);
+    });
   };
 
+  //A function for mimicing a powering down button
+  function powerDown() {
+    let powerButton = document.querySelector('.header-powerbttn');
+    powerButton.addEventListener('click', function(){
+      if (window.confirm('Are you sure you want to power down?')) {
+        document.body.style.display = "none";     
+      }
+    })
+  }
+//Allows access to the IIFE
   return {
     addf: add,
     getAllf: getAll,
-    addListItemf: addListItem
+    addListItemf: addListItem,
+    powerDownf:powerDown
   };
   })();
 
@@ -56,6 +69,8 @@ pokemonRepo.addf({name: 'Mew', height: 41, weight: 8.8, type: 'Psychic'});
 pokemonRepo.getAllf().forEach(function(pokemon) {
   pokemonRepo.addListItemf(pokemon);
 });
+
+pokemonRepo.powerDownf()
 
 /*
  if (pokemon.weight > 500 && pokemon.weight < 1000) {

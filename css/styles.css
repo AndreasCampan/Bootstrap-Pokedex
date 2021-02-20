@@ -38,6 +38,8 @@ ul {
   list-style-type: none;
 }
 
+
+
 /*-------------------------Header-------------------------*/
 .page-header { /* endless background for the header */
   width: 100%;
@@ -169,22 +171,26 @@ ul {
   font-weight: 600;
   line-height: 60px;
   color: rgb(0, 0, 0);
-  background-color:#bdb9df;
+  background-color:#c2bfdf;
   border: 3px solid #ececec;
   width: 100%;
   margin: 3px 0;
+  transition: all ease-in-out 0.3s;
 }
 
 .pokemon-list-style:hover{
-  text-align: center;
   font-size: 1.7em;
   font-weight: 600;
   line-height: 60px;
-  color: rgb(0, 0, 0);
-  width: 100%;
   border: 3px solid rgb(45, 97, 171);
   background-color: #F7C507;
-  transition: all ease-in-out 0.3s;
+ 
+}
+
+/*removes the black outline box from the created buttons */
+.pokemon-list-style:focus {
+  outline: none;
+  transition: none;
 }
 
 /*-------------------------About Page-------------------------*/
@@ -192,19 +198,21 @@ ul {
   text-align: center;
   width: 100%;
   min-width: 300px;
-  height: 86%;
+  height: 100%;
   max-height: 85vh;
   margin: 0 auto;
   border-radius: 5%;
   padding: 15px;
-  background-color: rgb(219, 219, 219);
+  background-color: #d2d0e6;
 }
 
 .about-logo-box {
-  position:relative;
+  position: absolute;
   margin-top: 0px;
-  margin-left:  auto;
-  bottom: 0;
+  margin:  auto;
+  bottom: 15px;
+  left: 0;
+  right: 0;
   text-align: center;
 }
 
@@ -264,15 +272,11 @@ ul {
     font-size: 1.4em;
     line-height: 45px;
     margin: 2px 0;
-    border: 2px solid rgb(45, 97, 171);
-    background-color: #F7C507;
   }
 
   .pokemon-list-style:hover{
     font-size: 1.4em;
     line-height: 45px;
-    border: 2px solid rgb(45, 97, 171);
-    background-color: #F7C507;
   }
 
   .page-header { /* endless background for the header */
@@ -285,7 +289,7 @@ ul {
   }
 
   .page-header-box li {
-       padding: 0;
+    padding: 0;
   }
 
   .header-powerbttn {

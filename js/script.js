@@ -1,21 +1,15 @@
 // This is the pokemon database of all the pokemon wither their respective attributes. Each 
 let pokemonRepo = (function(){
-  let pokedex = [
-    {name: 'Bulbasur', height: 70, weight: 15.2, type: ['Grass',' Poison']},
-    {name: 'Charmander', height: 60, weight: 18.7, type: ['Fire']},
-    {name: 'Squirtle', height: 50, weight: 19.8, type: ['Water']},
-    {name: 'Alakazam', height: 150, weight: 105.8, type: ['Psychic']},
-    {name: 'Gengar', height: 150, weight: 89.3, type: ['Ghost',' Posion']},
-    {name: 'Hitmonchan', height: 140, weight: 110.7, type: ['Fighting']},
-    {name: 'Gyarados', height: 650, weight: 518.1, type: ['Water',' Flying']},
-    {name: 'Snorlax', height: 210, weight: 1014.1, type: ['Normal']},
-    {name: 'Dragonite', height: 220, weight: 463, type: ['Dragon', ' Flying']}
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
+  let cap = function (name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
 
   // Funtion to add pokemon to the pokedex - contains a datatype check
   function add(pokemon) {
     if (typeof pokemon === 'object' && typeof pokemon !== null) {
-        pokedex.push(pokemon);
+        pokemonList.push(pokemon);
       } else {
         console.log('you need an object');
       }
@@ -23,20 +17,39 @@ let pokemonRepo = (function(){
 
   // Function for the retrival of the pokedex data
   function getAll() {
-    return pokedex;
+    return pokemonList;
   }
 
   // Function that will log the pokemon name to console when called
-  function showDetails(pokemon) { 
-    console.log(pokemon.name);
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+    });
   }
+
+  function showLoading(){
+    let pokemonList = document.querySelector('.pokedex-window');
+    let newDiv = document.createElement('div');
+    newDiv.innerText = 'Loading List!';
+    newDiv.classList.add('msg-board');
+    pokemonList.prepend(newDiv); 
+  }
+
+  function hideLoading(){
+    let pokemonList = document.querySelector('.pokedex-window');
+    let node = pokemonList.firstElementChild;
+    setTimeout(function () {
+      node.parentElement.removeChild(node);
+    }, 1000)
+  }
+
 
   /* Function to display pokemon from database on webpage. Contains a forEach method which creates a button with the name of each element iterated over */
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.pokemon-list');
     let listItem = document.createElement('li');
     let button = document.createElement('button');
-    button.innerText = pokemon.name;
+    button.innerText = cap(pokemon.name);
     button.classList.add('pokemon-list-style');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem); 
@@ -55,41 +68,57 @@ let pokemonRepo = (function(){
       }
     })
   }
-//Allows access to the IIFE
+
+  function loadList() {
+    showLoading();
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+      }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+      }).then (function (){
+        hideLoading();
+      }).catch(function (e) {
+        hideLoading();
+        console.error(e);
+      })
+  }
+  
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).then (function (){
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+  //Allows access to the IIFE
   return {
     addf: add,
     getAllf: getAll,
     addListItemf: addListItem,
+    loadListf: loadList,
     powerDownf:powerDown
   };
   })();
 
-pokemonRepo.addf({name: 'Mew', height: 41, weight: 8.8, type: 'Psychic'});
-
-pokemonRepo.getAllf().forEach(function(pokemon) {
-  pokemonRepo.addListItemf(pokemon);
+pokemonRepo.loadListf().then(function() {
+  // Now the data is loaded!
+  pokemonRepo.getAllf().forEach(function(pokemon){
+    pokemonRepo.addListItemf(pokemon);
+  });
 });
 
-pokemonRepo.powerDownf()
-
-/*
- if (pokemon.weight > 500 && pokemon.weight < 1000) {
-    document.write(`${(pokemon.name)} - Height: ${pokemon.height}cm - Weight: ${pokemon.weight} lbs - Now that is heavy! <br/> <br/>`);
-  } else if (pokemon.weight > 1000) {
-    document.write(`${(pokemon.name)} - Height: ${pokemon.height}cm - Weight: ${pokemon.weight} lbs - Whoa IT'S HUGE!!! <br/> <br/>`);
-  } else {
-    document.write(`${(pokemon.name)} - Height: ${pokemon.height}cm - Weight: ${pokemon.weight} lbs <br/> <br/>`); 
-  }
-
-The old for loop to iterate over every element in the array and then write it on the website. There's also an if logic that will look at the weight of the pokemon and add extra text depending on the parameters.
-
-for (let i=0; i < pokedex.length; i++){
-  if (pokedex[i].weight > 500 && pokedex[i].weight < 1000) {
-    document.write(`${(pokedex[i].name)} - Height: ${pokedex[i].height}cm Weight: ${pokedex[i].weight} lbs - Now that is heavy! <br/> <br/>`);
-  } else if (pokedex[i].weight > 1000) {
-    document.write(`${(pokedex[i].name)} - Height: ${pokedex[i].height}cm Weight: ${pokedex[i].weight} lbs - Whoa IT'S HUGE!!! <br/> <br/>`);
-  } else {
-    document.write(`${(pokedex[i].name)} - Height: ${pokedex[i].height}cm Weight: ${pokedex[i].weight} lbs <br/> <br/>`); 
-  }
-};
-*/
+pokemonRepo.powerDownf();

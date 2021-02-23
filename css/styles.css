@@ -147,6 +147,22 @@ ul {
   padding: 0 15px 0px 15px;
 }
 
+/*styles the loading screen*/
+.msg-board {
+  position: absolute;
+  display: flex;
+  font-size: 24px;
+  font-weight: 900;
+  max-width: 800px;
+  width: 95%;
+  min-width: 300px;
+  height: 95%;
+  margin: 0;
+  background-color: #ececec;
+  align-items: center;
+  justify-content: center;
+}
+
 .pokedex-window-scrollbox::-webkit-scrollbar{
   width: 11px;
 }

@@ -1,30 +1,33 @@
+:root{
+  --p-redcolour: #E61D23;
+  --s-redcolour: #8d0005;
+  --bg-color: #ececec;
+}
+
 * {/*  Varies values to fit within given size */
   box-sizing: border-box;
 }
 
 body {
-  background-color: #E61D23;
+  background-color: var(--p-redcolour);
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-a {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  font-size: 1.6em;
-  font-weight: 600;
-}
-
-a:hover {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-}
-
 h1 {
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
   padding: 0;
-  font-size: 26px;
+  font-size: 32px;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 p {
@@ -43,9 +46,9 @@ ul {
 /*-------------------------Header-------------------------*/
 .page-header { /* endless background for the header */
   width: 100%;
-  min-width: 300px;
+  min-width: 310px;
   height: 120px;
-  background-color: #8d0005;
+  background-color: var(--s-redcolour);
   border-bottom: 3px solid black;
   transition: ease all .4s;
 }
@@ -56,7 +59,7 @@ ul {
   align-items: center;
   margin: auto;
   width: 100%;
-  min-width: 300px;
+  min-width: 310px;
   max-width: 800px;
   height: 120px;
   transition: ease all .4s;
@@ -87,6 +90,13 @@ ul {
   list-style-type: none;
   padding: 0 1em;
 }
+
+.container{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
 /*-------------------------Navigation link images-------------------------*/
 .nav-bttn-home {
   background-image: url(../img/greenbttn.png);
@@ -120,15 +130,69 @@ ul {
   transition: ease-in-out all .2s;
 }
 
-/*-------------------------Home Page-------------------------*/
+/*------------------------- Pokemon Modal -------------------------*/
 
+.close{
+  display: inline-block;
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  border: 2px solid rgb(83, 83, 83);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #818181;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.close:hover{
+  display: inline-block;
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: var(--p-redcolour);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #818181;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.modal-foreground{
+  display: none;
+}
+
+.modal-foreground.visible{
+  overflow: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
+  background-color: var(--bg-color);
+  padding: 40px;
+  border-radius: 5%;
+  margin: 0;
+  top:0;
+  left: 0;
+  justify-content:center;
+  align-items: center;
+}
+
+.pokemon-img{  
+  width: 250px;
+  height: 250px;
+  margin: -30px 0 -10px 0;
+}
+
+/*-------------------------Home Page-------------------------*/
 .pokedex-window {
   position: relative;
   max-width: 800px;
   width: 100%;
   min-width: 300px;
   height: 500px;
-  background-color: #ececec;
+  background-color: var(--bg-color);
   margin: 50px auto;
   padding: 15px 15px 15px;
   border-radius: 5%;
@@ -143,11 +207,11 @@ ul {
   min-width: 300px;
   height: 100%;
   margin: 0;
-  background-color: #ececec;
+  background-color: var(--bg-color);
   padding: 0 15px 0px 15px;
 }
 
-/*styles the loading screen*/
+/*--styles the loading screen--*/
 .msg-board {
   position: absolute;
   display: flex;
@@ -158,7 +222,7 @@ ul {
   min-width: 300px;
   height: 95%;
   margin: 0;
-  background-color: #ececec;
+  background-color: var(--bg-color);
   align-items: center;
   justify-content: center;
 }
@@ -168,7 +232,7 @@ ul {
 }
  
 .pokedex-window-scrollbox::-webkit-scrollbar-track {
- background-color: #ececec;
+ background-color: var(--bg-color);
 }
  
 .pokedex-window-scrollbox::-webkit-scrollbar-thumb {
@@ -183,14 +247,15 @@ ul {
 
 .pokemon-list-style{
   text-align: center;
+  cursor: pointer;
   font-size: 1.7em;
   font-weight: 600;
   line-height: 60px;
   color: rgb(0, 0, 0);
   background-color:#c2bfdf;
-  border: 3px solid #ececec;
+  border: 3px solid rgb(147, 147, 255);
   width: 100%;
-  margin: 3px 0;
+  margin: 5px 0;
   transition: all ease-in-out 0.3s;
 }
 
@@ -203,7 +268,7 @@ ul {
  
 }
 
-/*removes the black outline box from the created buttons */
+/*--removes the black outline box from the created buttons--*/
 .pokemon-list-style:focus {
   outline: none;
   transition: none;
@@ -252,38 +317,26 @@ ul {
     margin: 0.5em auto 0;
     padding: 15px;
   }
-  
-  .nav-bttn-home {
-    width: 120px;
-    height: 37px;
-  }
-  
-  .nav-bttn-home:hover {
-    width: 120px;
-    height: 37px;
-  }
-  
-  .nav-bttn-about {
-    width: 120px;
-    height: 37px;
-  }
-  
-  .nav-bttn-about:hover {
-    width: 120px;
-    height: 37px;
-  }
 }
 
-
-@media all and (max-width:420px) {
+@media all and (max-width:475px) {
 
   .pokedex-window {
-    min-height: 200px;
-    height: 80vh;
-    margin: 0.5em auto 0;
     padding: 10px;
+    margin: 0.5em auto 0;
   }
   
+  .pokedex-window-scrollbox {
+    min-width: 200px;
+    padding: 0 15px 0px 15px;
+  }
+
+  .modal-foreground.visible{
+    min-width: 200px;
+    height: 100%;
+    padding: 10px;
+  }
+ 
   .pokemon-list-style{
     font-size: 1.4em;
     line-height: 45px;
@@ -296,7 +349,7 @@ ul {
   }
 
   .page-header { /* endless background for the header */
-    min-width: 300px;
+    min-width: 310px;
     height: 90px;
   }
 
@@ -308,43 +361,26 @@ ul {
     padding: 0;
   }
 
-  .header-powerbttn {
-    margin: 0 0 0 15px;
-    width: 75px;
-    height: 75px;
-    min-width: 75px;
-    min-height: 75px;
-    border: 1px solid black;
-  }
-  
-  .header-powerbttn:hover {
-    margin-left: 15px;
+  .header-powerbttn, .header-powerbttn:hover {
+    margin-left: 10px;
+    margin-right: -20px;
     width: 75px;
     height: 75px;
     min-width: 75px;
     min-height: 75px;
   }
 
-  .nav-bttn-home {
+  .nav-bttn-home, .nav-bttn-home:hover {
+    width: 95px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  
+  .nav-bttn-about, .nav-bttn-about:hover {
     width: 95px;
     height: 30px;
   }
   
-  .nav-bttn-home:hover {
-    width: 95px;
-    height: 30px;
-  }
-  
-  .nav-bttn-about {
-    width: 95px;
-    height: 30px;
-  }
-  
-  .nav-bttn-about:hover {
-    width: 95px;
-    height: 30px;
-  }
-
   .logos {
     width: 40px;
   }

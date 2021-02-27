@@ -1,8 +1,11 @@
-// This is the pokemon database of all the pokemon wither their respective attributes. Each 
+// An IIFE containing an api database of pokemon and the ability to display them in the webpage while showing detail using a modal.
 let pokemonRepo = (function(){
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
-  let cap = function (name) {
+  //Database
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+  
+  //Capitalizd the name of each pokemon
+  function cap (name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
@@ -20,13 +23,76 @@ let pokemonRepo = (function(){
     return pokemonList;
   }
 
-  // Function that will log the pokemon name to console when called
+  // Function that will display pokemon details in a modal
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      console.log(pokemon);
+      let page = document.querySelector('.pokedex-window');
+
+      //A function to create the modal and it's content
+      function container (){
+        let creatediv = document.createElement('div');
+        creatediv.classList.add('modal-foreground');
+
+        let createbutton = document.createElement('button');
+        createbutton.classList.add('close');
+        createbutton.innerHTML = 'X';
+        createbutton.addEventListener('click', hide);
+
+        let createimg = document.createElement('img');
+        createimg.classList.add('pokemon-img');
+        createimg.src = pokemon.imageUrl;
+        createimg.alt = "Image of " + pokemon.name
+
+        let createname = document.createElement('h1');
+        createname.classList.add('h1');
+        createname.innerHTML = cap(pokemon.name);
+
+        let createheight = document.createElement('h2');
+        createheight.classList.add('h2');
+        createheight.innerHTML = "Height: " + pokemon.height*10 + "cm";
+
+        let createweight = document.createElement('h2');
+        createweight.classList.add('h2');
+        createweight.innerHTML = "Weight: " + pokemon.weight + "lbs";
+
+        let createability = document.createElement('h2');
+        createability.classList.add('h2');
+        createability.innerHTML = "Ability: " + pokemon.abilities;
+
+        let createtype = document.createElement('h2');
+        createtype.classList.add('h2');
+        createtype.innerHTML = "Type: " + pokemon.types;
+
+        //Appends all the created elements to the pokedex window
+        creatediv.appendChild(createbutton);
+        creatediv.appendChild(createimg);
+        creatediv.appendChild(createname);
+        creatediv.appendChild(createheight);
+        creatediv.appendChild(createweight);
+        creatediv.appendChild(createability);
+        creatediv.appendChild(createtype);
+        page.prepend(creatediv);
+
+        //enables the 
+        creatediv.classList.add('visible');
+      }
+
+      function hide(){
+        let x = page.querySelector('div');
+        x.classList.remove('visible');
+      }
+      
+      window.addEventListener('keydown', (event) => {
+        let y = page.querySelector('div');
+        if (event.key === 'Escape' && y.classList.contains('visible')) {
+          hide();
+        }
+      })
+      container();
     });
   }
 
+  //function to show a loading page while retrieving data.
   function showLoading(){
     let pokemonList = document.querySelector('.pokedex-window');
     let newDiv = document.createElement('div');
@@ -35,12 +101,14 @@ let pokemonRepo = (function(){
     pokemonList.prepend(newDiv); 
   }
 
+  //function to hide loading page after retrieving data.
   function hideLoading(){
     let pokemonList = document.querySelector('.pokedex-window');
     let node = pokemonList.firstElementChild;
+    //setTimeout is to mimic delay in retrieving data
     setTimeout(function () {
       node.parentElement.removeChild(node);
-    }, 1000)
+    }, 400)
   }
 
 
@@ -53,13 +121,13 @@ let pokemonRepo = (function(){
     button.classList.add('pokemon-list-style');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem); 
-    //event listener for on click to run the showDetails function
+    //event listener for a click to run the showDetails function
     button.addEventListener('click', function() {
       showDetails(pokemon);
     });
   };
 
-  //A function for mimicing a powering down button
+  //A function for mimicing a powering down button of the app
   function powerDown() {
     let powerButton = document.querySelector('.header-powerbttn');
     powerButton.addEventListener('click', function(){
@@ -69,6 +137,7 @@ let pokemonRepo = (function(){
     })
   }
 
+  //A functon to load each pokemon name and url
   function loadList() {
     showLoading();
     return fetch(apiUrl).then(function (response) {
@@ -89,22 +158,34 @@ let pokemonRepo = (function(){
       })
   }
   
+  //Load the details from the database
   function loadDetails(item) {
+    showLoading();
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
-      // Now we add the details to the item
+      //The specific details requested
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.types = details.types;
+      item.weight = details.weight;
+      item.abilities = [];
+      details.abilities.forEach(function (itemAbility){
+        item.abilities.push(" " + cap(itemAbility.ability.name));
+      })
+      item.types = [];
+      details.types.forEach(function(itemType){
+        item.types.push(" " + cap(itemType.type.name));
+      })
     }).then (function (){
+      hideLoading();
     }).catch(function (e) {
       console.error(e);
     });
   }
 
-  //Allows access to the IIFE
+  //Allows access to the IIFE from outside the function
   return {
     addf: add,
     getAllf: getAll,
@@ -112,13 +193,13 @@ let pokemonRepo = (function(){
     loadListf: loadList,
     powerDownf:powerDown
   };
-  })();
+})();
 
 pokemonRepo.loadListf().then(function() {
-  // Now the data is loaded!
   pokemonRepo.getAllf().forEach(function(pokemon){
     pokemonRepo.addListItemf(pokemon);
   });
 });
 
+//Runs the powerdown function to shut down the page if clicked
 pokemonRepo.powerDownf();

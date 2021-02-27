@@ -44,23 +44,18 @@ let pokemonRepo = (function(){
         createimg.alt = "Image of " + pokemon.name
 
         let createname = document.createElement('h1');
-        createname.classList.add('h1');
         createname.innerHTML = cap(pokemon.name);
 
         let createheight = document.createElement('h2');
-        createheight.classList.add('h2');
         createheight.innerHTML = "Height: " + pokemon.height*10 + "cm";
 
         let createweight = document.createElement('h2');
-        createweight.classList.add('h2');
         createweight.innerHTML = "Weight: " + pokemon.weight + "lbs";
 
         let createability = document.createElement('h2');
-        createability.classList.add('h2');
         createability.innerHTML = "Ability: " + pokemon.abilities;
-
+        
         let createtype = document.createElement('h2');
-        createtype.classList.add('h2');
         createtype.innerHTML = "Type: " + pokemon.types;
 
         //Appends all the created elements to the pokedex window

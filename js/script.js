@@ -41,7 +41,7 @@ let pokemonRepo = (function(){
         let createimg = document.createElement('img');
         createimg.classList.add('pokemon-img');
         createimg.src = pokemon.imageUrl;
-        createimg.alt = "Image of " + pokemon.name
+        createimg.alt = "Image of " + pokemon.name;
 
         let createname = document.createElement('h1');
         createname.innerHTML = cap(pokemon.name);
@@ -82,7 +82,7 @@ let pokemonRepo = (function(){
         if (event.key === 'Escape' && y.classList.contains('visible')) {
           hide();
         }
-      })
+      });
       container();
     });
   }
@@ -103,7 +103,7 @@ let pokemonRepo = (function(){
     //setTimeout is to mimic delay in retrieving data
     setTimeout(function () {
       node.parentElement.removeChild(node);
-    }, 400)
+    }, 400);
   }
 
 
@@ -120,7 +120,7 @@ let pokemonRepo = (function(){
     button.addEventListener('click', function() {
       showDetails(pokemon);
     });
-  };
+  }
 
   //A function for mimicing a powering down button of the app
   function powerDown() {
@@ -129,7 +129,7 @@ let pokemonRepo = (function(){
       if (window.confirm('Are you sure you want to power down?')) {
         document.body.style.display = "none";     
       }
-    })
+    });
   }
 
   //A functon to load each pokemon name and url
@@ -150,7 +150,7 @@ let pokemonRepo = (function(){
       }).catch(function (e) {
         hideLoading();
         console.error(e);
-      })
+      });
   }
   
   //Load the details from the database
@@ -168,11 +168,11 @@ let pokemonRepo = (function(){
       item.abilities = [];
       details.abilities.forEach(function (itemAbility){
         item.abilities.push(" " + cap(itemAbility.ability.name));
-      })
+      });
       item.types = [];
       details.types.forEach(function(itemType){
         item.types.push(" " + cap(itemType.type.name));
-      })
+      });
     }).then (function (){
       hideLoading();
     }).catch(function (e) {

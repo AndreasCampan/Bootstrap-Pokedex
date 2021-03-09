@@ -27,6 +27,6 @@ To run this project I recommend using a modern web browser such as Google Chrome
   - Stylelint: Ver 0.86.0
   - Prettier - Code Formatter: Ver 5.9.2
 
-3. **Chrome:** Ver 87.0.4280.141
-4. **Node.js:** Ver 12.18.3
-5. **OS:** Windows_NT x64 10.0.19042
+8. **Chrome:** Ver 87.0.4280.141
+9. **Node.js:** Ver 12.18.3
+10. **OS:** Windows_NT x64 10.0.19042

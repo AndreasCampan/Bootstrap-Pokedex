@@ -12,37 +12,45 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" >
   </head>
   <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a href="index.html"><img class="navbar-brand" src="img/iconfinder_Poke_Ball_1703896.svg" width="35px">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Pokedex</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-danger fixed-top">
+        <a href="index.html"><img class="navbar-brand" src="img/iconfinder_Poke_Ball_1703896.svg" width="35px" aria-label="Pokeball Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active underline">
+              <a class="nav-link " href="index.html" aria-label="Home page link">Pokedex</a>
+            </li>
+            <li class="nav-item active underline">
+              <a class="nav-link " href="about.html" aria-label="Link leading to the about page">About</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-sm-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search" id="search">
+          </form>
+          <a href="https://github.com/AndreasCampan/bootstrap-pokedex" target="_blank">
+            <img src="img/github-logo.svg" alt="Github logo. Link leading to Github profile page" class="logos"></a>
+
+            <a href="https://andreascampan.github.io/AC-portfolio-website/index.html" target="_blank">
+              <img src="img/logo-circle.svg" alt="Web master logo. Link leading to owner's portfolio page." class="logos"></a>
+        </div>
+      </nav>
+    </header>
   <main>
     <div class="container">
       <div class="row text-center">
-        <div class="col-12 p-4">
-          <h1>Project Pokédex</h1>
+        <div class="col-12 mt-5 pt-5 mb-3">
+          <h2>About Project Pokedex</h2>
         </div>
         <div class="row">
           <div class="col-2"></div>
           <div class="col">
             <p>
-              This project is designed and created by Andreas Campan for the purposes of learning javascript that loads data from an external API and enables viewing of data points. <br /> <br/>
-              Check out the github link below for project details or other links for more about me. Thanks!
+              This project is a redesign of my original vanilla JS pokedex for the purposes of learning Bootstrap and implementing jQuery which loads data from an external API and enables viewing of the data points of each pokemon. <br /> <br/>
+              Check out the github link below for project details and more information about me!
             </p>
           </div>
           <div class="col-2"></div>
@@ -75,6 +83,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/promise-polyfill.js"></script>
     <script src="js/fetch.js"></script>
-    <script src="js/script.js"></script>
   </body>
 </html>

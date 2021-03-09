@@ -1,8 +1,8 @@
 // An IIFE containing an api database of pokemon and the ability to display them in the webpage while showing detail using a modal.
 let pokemonRepo = (function(){
   let pokemonList = [];
-  //Database
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+  let searchInput = document.getElementById('search');
   
   //Capitalizd the name of each pokemon
   function cap (name) {
@@ -84,14 +84,12 @@ let pokemonRepo = (function(){
       function container (){
         let modalBody = $(".modal-body");
         let modalTitle = $(".modal-title");
-        let modalHeader = $(".modal-header");
         // Clear all existing modal content
         modalTitle.empty();
         modalBody.empty();
 
-        let imageElementFront = $('<img class="modal-img" style="width:120px">');
-        imageElementFront.attr("src", pokemon.imageURLspecial);
-
+        let imageFront = $('<img class="modal-img" style="width:120px">');
+        imageFront.attr("src", pokemon.imageURLspecial);
         let nameElement = $("<h1>" + cap(pokemon.name) +  "</h1>");
         let heightElement = $("<p>" + "<strong>" + "Height: " + "</strong>" + pokemon.height + "</p>");
         let weightElement = $("<p>" + "<strong>" + "Weight: " + "</strong>" + pokemon.weight + "</p>");
@@ -99,12 +97,11 @@ let pokemonRepo = (function(){
         let abilitiesElement = $("<p>" + "<strong>" + "Abilities: " + "</strong>" + pokemon.abilities + "</p>");
 
         modalTitle.append(nameElement);
-        modalBody.append(imageElementFront);
+        modalBody.append(imageFront);
         modalBody.append(heightElement);
         modalBody.append(weightElement);
         modalBody.append(typesElement);
         modalBody.append(abilitiesElement);
-      
         modalContainer.addClass("is-visible");
       }
       container();
@@ -133,7 +130,6 @@ let pokemonRepo = (function(){
   
   //Load the details from the database
   function loadDetails(item) {
-
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
@@ -156,7 +152,28 @@ let pokemonRepo = (function(){
       console.error(e);
     });
   }
-  
+
+  //Runs the search function when an search input is detected
+  searchInput.addEventListener('keyup', (e) => {
+    search();
+  });
+
+  //Search function
+  function search(){
+    let searchvalue = searchInput.value;
+    let li = document.querySelectorAll('.card');
+    let filSearchValue = searchvalue.toLowerCase();; 
+
+    for (i = 0; i < li.length; i++){
+      pokemonName = li[i].querySelector('.card-title').innerText.toLowerCase();
+      if (pokemonName.indexOf(filSearchValue) > -1) {
+        li[i].style.display = "";
+      }else{
+        li[i].style.display = "none";
+      }
+    }
+  }
+
   //Allows access to the IIFE from outside the function
   return {
     addf: add,
@@ -175,8 +192,3 @@ pokemonRepo.loadListf().then(function() {
   console.error(e);
 });
 
-let search = document.getElementById('search');
-
-search.addEventListener('keyup', (e) => {
-  console.log(e.target.value);
-});

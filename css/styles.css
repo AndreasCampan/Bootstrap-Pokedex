@@ -33,12 +33,6 @@ h1{
   transition: all ease-in-out 0.2s;
 }
 
-footer .row div {
-  background-color: #DC3545;
-  border-top: 2px solid green;
-  height: 60px;
-}
-
 .logos {
   width: 40px;
   height: auto;

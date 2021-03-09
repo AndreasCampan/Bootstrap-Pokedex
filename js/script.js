@@ -48,17 +48,18 @@ let pokemonRepo = (function(){
       let card = document.createElement('li');
       let cardbody = document.createElement('div');
       let button = document.createElement('button');
-      let name = document.createElement('h5');
+      let name = document.createElement('h1');
       let img = document.createElement('img');
 
       card.classList.add('card', 'customcard', 'text-center');
       cardbody.classList.add('card-body');
       name.classList.add('card-title');
-      button.classList.add('btn', 'btn-primary');
+      button.classList.add('btn', 'btn-danger');
       button.setAttribute("data-toggle","modal");
       button.setAttribute("data-target","#exampleModalCenter");
       img.classList.add('display-img');
       img.src = pokemon.imageURLfront;
+      img.alt = "An image of the Pokemon represented on this card"
 
       name.innerText = cap(pokemon.name);
       button.innerText = "See Details";

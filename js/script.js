@@ -9,7 +9,7 @@ let pokemonRepo = (function(){
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
-  // Funtion to add pokemon to the pokedex - contains a datatype check
+  // Funtion to add pokemon to the#pokedex - contains a datatype check
   function add(pokemon) {
     if (typeof pokemon === 'object' && typeof pokemon !== null) {
         pokemonList.push(pokemon);
@@ -18,78 +18,14 @@ let pokemonRepo = (function(){
       }
   }
 
-  // Function for the retrival of the pokedex data
+  // Function for the retrival of the#pokedex data
   function getAll() {
     return pokemonList;
   }
 
-  // Function that will display pokemon details in a modal
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      let page = document.querySelector('.pokedex-window');
-
-      //A function to create the modal and it's content
-      function container (){
-        let creatediv = document.createElement('div');
-        creatediv.classList.add('modal-foreground');
-
-        let createbutton = document.createElement('button');
-        createbutton.classList.add('close');
-        createbutton.innerHTML = 'X';
-        createbutton.addEventListener('click', hide);
-
-        let createimg = document.createElement('img');
-        createimg.classList.add('pokemon-img');
-        createimg.src = pokemon.imageUrl;
-        createimg.alt = "Image of " + pokemon.name;
-
-        let createname = document.createElement('h1');
-        createname.innerHTML = cap(pokemon.name);
-
-        let createheight = document.createElement('h2');
-        createheight.innerHTML = "Height: " + pokemon.height*10 + "cm";
-
-        let createweight = document.createElement('h2');
-        createweight.innerHTML = "Weight: " + pokemon.weight + "lbs";
-
-        let createability = document.createElement('h2');
-        createability.innerHTML = "Ability: " + pokemon.abilities;
-        
-        let createtype = document.createElement('h2');
-        createtype.innerHTML = "Type: " + pokemon.types;
-
-        //Appends all the created elements to the pokedex window
-        creatediv.appendChild(createbutton);
-        creatediv.appendChild(createimg);
-        creatediv.appendChild(createname);
-        creatediv.appendChild(createheight);
-        creatediv.appendChild(createweight);
-        creatediv.appendChild(createability);
-        creatediv.appendChild(createtype);
-        page.prepend(creatediv);
-
-        //enables the 
-        creatediv.classList.add('visible');
-      }
-
-      function hide(){
-        let x = page.querySelector('div');
-        x.classList.remove('visible');
-      }
-      
-      window.addEventListener('keydown', (event) => {
-        let y = page.querySelector('div');
-        if (event.key === 'Escape' && y.classList.contains('visible')) {
-          hide();
-        }
-      });
-      container();
-    });
-  }
-
   //function to show a loading page while retrieving data.
   function showLoading(){
-    let pokemonList = document.querySelector('.pokedex-window');
+    let pokemonList = document.querySelector('.pokemon-list');
     let newDiv = document.createElement('div');
     newDiv.innerText = 'Loading List!';
     newDiv.classList.add('msg-board');
@@ -98,38 +34,80 @@ let pokemonRepo = (function(){
 
   //function to hide loading page after retrieving data.
   function hideLoading(){
-    let pokemonList = document.querySelector('.pokedex-window');
+    let pokemonList = document.querySelector('.pokemon-list');
     let node = pokemonList.firstElementChild;
     //setTimeout is to mimic delay in retrieving data
     setTimeout(function () {
       node.parentElement.removeChild(node);
-    }, 400);
+    }, 100);
   }
 
-
-  /* Function to display pokemon from database on webpage. Contains a forEach method which creates a button with the name of each element iterated over */
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector('.pokemon-list');
-    let listItem = document.createElement('li');
-    let button = document.createElement('button');
-    button.innerText = cap(pokemon.name);
-    button.classList.add('pokemon-list-style');
-    listItem.appendChild(button);
-    pokemonList.appendChild(listItem); 
-    //event listener for a click to run the showDetails function
-    button.addEventListener('click', function() {
-      showDetails(pokemon);
+    loadDetails(pokemon).then(function () {
+      let pokemonList = document.querySelector('.pokemon-list');
+      let card = document.createElement('li');
+      let cardbody = document.createElement('div');
+      let button = document.createElement('button');
+      let name = document.createElement('h5');
+      let img = document.createElement('img');
+
+      card.classList.add('card', 'customcard', 'text-center');
+      cardbody.classList.add('card-body');
+      name.classList.add('card-title');
+      button.classList.add('btn', 'btn-primary');
+      button.setAttribute("data-toggle","modal");
+      button.setAttribute("data-target","#exampleModalCenter");
+      img.classList.add('display-img');
+      img.src = pokemon.imageURLfront;
+
+      name.innerText = cap(pokemon.name);
+      button.innerText = "See Details";
+
+      cardbody.appendChild(name);
+      cardbody.appendChild(button);
+      card.appendChild(img);
+      card.appendChild(cardbody);
+    
+      pokemonList.appendChild(card); 
+      //event listener for a click to run the showDetails function
+      button.addEventListener('click', function() {
+        showDetails(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
     });
   }
+  // Function that will display pokemon details in a modal
+  function showDetails(pokemon) {
+    let modalContainer = $("#container2");
+      //A function to create the modal and it's content
+      function container (){
+        let modalBody = $(".modal-body");
+        let modalTitle = $(".modal-title");
+        let modalHeader = $(".modal-header");
+        // Clear all existing modal content
+        modalTitle.empty();
+        modalBody.empty();
 
-  //A function for mimicing a powering down button of the app
-  function powerDown() {
-    let powerButton = document.querySelector('.header-powerbttn');
-    powerButton.addEventListener('click', function(){
-      if (window.confirm('Are you sure you want to power down?')) {
-        document.body.style.display = "none";     
+        let imageElementFront = $('<img class="modal-img" style="width:120px">');
+        imageElementFront.attr("src", pokemon.imageURLspecial);
+
+        let nameElement = $("<h1>" + cap(pokemon.name) +  "</h1>");
+        let heightElement = $("<p>" + "<strong>" + "Height: " + "</strong>" + pokemon.height + "</p>");
+        let weightElement = $("<p>" + "<strong>" + "Weight: " + "</strong>" + pokemon.weight + "</p>");
+        let typesElement = $("<p>" + "<strong>" + "Types: " + "</strong>" + pokemon.types + "</p>");
+        let abilitiesElement = $("<p>" + "<strong>" + "Abilities: " + "</strong>" + pokemon.abilities + "</p>");
+
+        modalTitle.append(nameElement);
+        modalBody.append(imageElementFront);
+        modalBody.append(heightElement);
+        modalBody.append(weightElement);
+        modalBody.append(typesElement);
+        modalBody.append(abilitiesElement);
+      
+        modalContainer.addClass("is-visible");
       }
-    });
+      container();
   }
 
   //A functon to load each pokemon name and url
@@ -155,38 +133,37 @@ let pokemonRepo = (function(){
   
   //Load the details from the database
   function loadDetails(item) {
-    showLoading();
+
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
       //The specific details requested
-      item.imageUrl = details.sprites.front_default;
+      item.imageURLfront = details.sprites.versions["generation-v"]["black-white"].front_default;
+      item.imageURLspecial = details.sprites.versions["generation-v"]["black-white"].animated.front_default;
       item.height = details.height;
       item.types = details.types;
       item.weight = details.weight;
       item.abilities = [];
       details.abilities.forEach(function (itemAbility){
-        item.abilities.push(" " + cap(itemAbility.ability.name));
+      item.abilities.push(" " + cap(itemAbility.ability.name));
       });
       item.types = [];
       details.types.forEach(function(itemType){
         item.types.push(" " + cap(itemType.type.name));
       });
-    }).then (function (){
-      hideLoading();
     }).catch(function (e) {
       console.error(e);
     });
   }
-
+  
   //Allows access to the IIFE from outside the function
   return {
     addf: add,
     getAllf: getAll,
     addListItemf: addListItem,
     loadListf: loadList,
-    powerDownf:powerDown
+    showDetailsf: showDetails
   };
 })();
 
@@ -194,7 +171,12 @@ pokemonRepo.loadListf().then(function() {
   pokemonRepo.getAllf().forEach(function(pokemon){
     pokemonRepo.addListItemf(pokemon);
   });
+}).catch(function (e) {
+  console.error(e);
 });
 
-//Runs the powerdown function to shut down the page if clicked
-pokemonRepo.powerDownf();
+let search = document.getElementById('search');
+
+search.addEventListener('keyup', (e) => {
+  console.log(e.target.value);
+});

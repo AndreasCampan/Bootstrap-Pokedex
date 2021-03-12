@@ -1,7 +1,7 @@
 // An IIFE containing the pokedex API and functions
 const pokemonRepo = (function () {
   const pokemonNameList = [];
-  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=15';
+  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=3';
   const searchInput = document.getElementById('search');
   const pokemonList = document.querySelector('.pokemon-list');
 
@@ -40,8 +40,8 @@ const pokemonRepo = (function () {
     }, 100);
   }
 
-  // Function that will display pokemon details in a modal
-  function showDetails(pokemon) {
+  // Function that will display pokemon inneritem in a modal
+  function showinneritem(pokemon) {
     const modalContainer = $('#container2');
     // A function to create the modal and it's content
     function container() {
@@ -97,7 +97,7 @@ const pokemonRepo = (function () {
     img.alt = 'An image of the Pokemon represented on this card';
 
     name.innerText = cap(pokemon.name);
-    button.innerText = 'See Details';
+    button.innerText = 'See inneritem';
 
     cardbody.appendChild(name);
     cardbody.appendChild(button);
@@ -105,9 +105,9 @@ const pokemonRepo = (function () {
     card.appendChild(cardbody);
 
     pokemonList.appendChild(card);
-    // event listener for a click to run the showDetails function
+    // event listener for a click to run the showinneritem function
     button.addEventListener('click', () => {
-      showDetails(pokemon);
+      showinneritem(pokemon);
     });
   }
 
@@ -126,9 +126,10 @@ const pokemonRepo = (function () {
                 height: inneritem.height,
                 weight: inneritem.weight,
                 imageURL: inneritem.sprites.versions['generation-v']['black-white'].front_default,
+                imageURLanimated: inneritem.sprites.versions['generation-v']['black-white'].animated.front_default
               };
-              console.log('test1');
               add(pokemon);
+              console.log(pokemonNameList);
             });
         });
       })
@@ -168,15 +169,15 @@ const pokemonRepo = (function () {
     getAllf: getAll,
     addListItemf: addListItem,
     loadListf: loadList,
-    showDetailsf: showDetails,
+    showinneritemf: showinneritem,
   };
 }());
 
 pokemonRepo.loadListf()
   .then(() => {
-    pokemonRepo.getAllf().forEach((pokemon) => {
+    pokemonRepo.getAllf().forEach((item) => {
       console.log('Hello from inside the foreach');
-      pokemonRepo.addListItemf(pokemon);
+      pokemonRepo.addListItemf(item);
     });
   })
   .catch((e) => {

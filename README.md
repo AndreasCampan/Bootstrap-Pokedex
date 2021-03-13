@@ -22,10 +22,7 @@ To run this project I recommend using a modern web browser such as Google Chrome
 
 7. **Visual Studio Code:** Ver 1.53.2
   **Extensions:**
-  - W3CValidation: Ver 2.8.0
-  - ESLint: Ver 2.1.14
-  - Stylelint: Ver 0.86.0
-  - Prettier - Code Formatter: Ver 5.9.2
+- ESLint: Ver 7.21.0, eslint-config-airbnb-base@14.2.1, eslint-config-jquery@3.0.0, eslint-plugin-import@2.22.1, eslint-plugin-jquery@1.5.1
 
 8. **Chrome:** Ver 87.0.4280.141
 9. **Node.js:** Ver 12.18.3

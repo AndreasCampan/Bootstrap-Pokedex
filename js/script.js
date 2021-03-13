@@ -39,9 +39,7 @@ const pokemonRepo = (function () {
   function hideLoading() {
     const selectedNode = pokemonList.firstElementChild;
     // setTimeout is to mimic delay in retrieving data
-    setTimeout(() => {
-      selectedNode.parentElement.removeChild(selectedNode);
-    }, 100);
+    selectedNode.parentElement.removeChild(selectedNode);
   }
 
   // Function that will display pokemon inneritem in a modal

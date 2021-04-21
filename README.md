@@ -13,8 +13,7 @@ To run this project I recommend using a modern web browser such as Google Chrome
 
 # Project Environment Setup and Dependencies
 
-1. **Bootsrap CSS** Ver 4.3.1
-2. **Bootsrap JS** Ver 4.3.1
+1. **Bootstrap Ver 4.3.1
 3. **Promise-Fill JS**
 4. **Fetch JS**
 

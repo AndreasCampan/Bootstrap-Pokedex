@@ -1,6 +1,6 @@
 # Project Description
 
-This project is designed to mimic the pokedex found in the cartoon show Pokemon and is built using HTML, CSS and 
+This project is designed to mimic the pokedex found in the cartoon show Pokemon and is built using HTML, Bootstrap, some CSS and 
 javascript. The pokedex will load the pokemon data from an external API. A list of pokemon will be displayed which will show pokemon details if clicked on.
 
 # Project Purpose

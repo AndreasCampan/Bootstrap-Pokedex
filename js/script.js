@@ -1,33 +1,33 @@
-// An IIFE containing the pokedex API and functions
+//An IIFE containing the pokedex API and functions
 const pokemonRepo = (function () {
   const pokemonNameList = [];
   const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
   const searchInput = document.getElementById('search');
   const pokemonList = document.querySelector('.pokemon-list');
 
-  // Capitalizd the name of each pokemon
+  //Capitalizd the name of each pokemon
   function cap(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
-  // Function to sort pokemon in the array by their natural id
+  //Function to sort pokemon in the array by their natural id
   function byId(a, b) {
     return parseInt(a.id, 10) - parseInt(b.id, 10);
   }
 
-  // Funtion to add pokemon to the#pokedex - contains a datatype check
+  //Funtion to add pokemon to the#pokedex - contains a datatype check
   function add(pokemon) {
     if (typeof pokemon === 'object') {
       pokemonNameList.push(pokemon);
     }
   }
 
-  // Returns the generated array from the API data in a sorted format
+  //Returns the generated array from the API data in a sorted format
   function getAll() {
     return pokemonNameList.sort(byId);
   }
 
-  // function to show a loading page while retrieving data.
+  //function to show a loading page while retrieving data.
   function showLoading() {
     const newDiv = document.createElement('div');
     newDiv.innerText = 'Loading List!';
@@ -35,21 +35,21 @@ const pokemonRepo = (function () {
     pokemonList.prepend(newDiv);
   }
 
-  // Function to hide loading page after retrieving data.
+  //Function to hide loading page after retrieving data.
   function hideLoading() {
     const selectedNode = pokemonList.firstElementChild;
-    // setTimeout is to mimic delay in retrieving data
+    //setTimeout is to mimic delay in retrieving data
     selectedNode.parentElement.removeChild(selectedNode);
   }
 
-  // Function that will display pokemon inneritem in a modal
+  //Function that will display pokemon inneritem in a modal
   function showDetails(pokemon) {
     const modalContainer = $('#container2');
-    // A function to create the modal and it's content
+    //A function to create the modal and it's content
     function container() {
       const modalBody = $('.modal-body');
       const modalTitle = $('.modal-title');
-      // Clear all existing modal content
+      //Clear all existing modal content
       modalTitle.empty();
       modalBody.empty();
 
@@ -68,7 +68,7 @@ const pokemonRepo = (function () {
       const abilitiesElement = $(
         `${'<p><strong>Abilities: </strong>'}${pokemon.abilities}</p>`,
       );
-      // Attaches the created content to the document
+      //Attaches the created content to the document
       modalTitle.append(nameElement);
       modalBody.append(imageFront);
       modalBody.append(heightElement);
@@ -106,13 +106,13 @@ const pokemonRepo = (function () {
     card.appendChild(cardbody);
 
     pokemonList.appendChild(card);
-    // event listener for a click to run the showDetails function
+    //event listener for a click to run the showDetails function
     button.addEventListener('click', () => {
       showDetails(pokemon);
     });
   }
 
-  // A functon to load each pokemon name and url
+  //A functon to load each pokemon name and url
   function loadList() {
     showLoading();
     return fetch(apiUrl)
@@ -147,7 +147,7 @@ const pokemonRepo = (function () {
       });
   }
 
-  // Search function
+  //Search function
   function search() {
     const searchvalue = searchInput.value;
     const li = document.querySelectorAll('.card');
@@ -162,12 +162,12 @@ const pokemonRepo = (function () {
     }
   }
 
-  // Runs the search function when an search input is detected
+  //Runs the search function when an search input is detected
   searchInput.addEventListener('keyup', () => {
     search();
   });
 
-  // Allows access to the IIFE from outside the function
+  //Allows access to the IIFE from outside the function
   return {
     addf: add,
     getAllf: getAll,

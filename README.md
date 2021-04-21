@@ -5,7 +5,7 @@ Script. The pokedex will load the pokemon data from an external API. A list of p
 
 # Project Purpose
 
-The purpose for this pokedex remake was to learn how to integrate the Bootstrap framework while also implementing some jQUery.
+The purpose for this pokedex remake was to learn how to integrate the Bootstrap framework while also implementing some jQuery.
 
 # How to Run
 

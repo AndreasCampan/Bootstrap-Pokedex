@@ -1,11 +1,11 @@
 # Project Description
 
-This project is designed to mimic the pokédex found in the cartoon show Pokémon and is built using HTML, Bootstrap, some CSS and 
-javascript. The pokédex will load the pokémon data from an external API. A list of pokémon will be displayed which will show pokémon details if clicked on.
+This project is designed to mimic the Pokédex found in the cartoon show Pokémon and is built using HTML, Bootstrap, some CSS and 
+javascript. The Pokédex will load the Pokémon data from an external API. A list of Pokémon will be displayed which will show Pokémon details if clicked on.
 
 # Project Purpose
 
-The purpose for this pokédex remake was to learn how to integrate the Bootstrap framework instead of pure css.
+The purpose for this Pokédex remake was to learn how to integrate the Bootstrap framework instead of pure css.
 
 # How to Run
 
